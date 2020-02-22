@@ -1,10 +1,14 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
+<!-- version 1.1.1 implies use of openmrs-core 1.11.2 and compile target jre6 -->
 
 	<parent>
 		<groupId>org.openmrs.maven.parents</groupId>
 		<artifactId>maven-parent-openmrs-module</artifactId>
+		
 		<version>1.1.1</version>
 	</parent>
 
@@ -38,44 +42,85 @@
 	</modules>
 
 	<properties>
-		<openMRSVersion>2.0.0</openMRSVersion>
+		<!-- override old openmrs-sdk maven parent pom properties -->
+		<javaCompilerSource>1.8</javaCompilerSource>
+		<javaCompilerTarget>1.8</javaCompilerTarget>
+		<openmrsPlatformVersion>2.0.0</openmrsPlatformVersion>
+		<openmrsPlatformToolsVersion>2.0.0</openmrsPlatformToolsVersion>
 		<reportingVersion>1.14.0</reportingVersion>
+		<patientsummaryVersion>2.2-SNAPSHOT</patientsummaryVersion>
 		<reportingcompatibilityVersion>2.0.4</reportingcompatibilityVersion>
 		<emrapiVersion>1.16</emrapiVersion>
 		<calculationVersion>1.1</calculationVersion>
 		<serialization.xstreamVersion>0.2.11</serialization.xstreamVersion>
 		<providermanagementVersion>2.2</providermanagementVersion>
 		<idgenVersion>4.3</idgenVersion>
-		<initializerVersion>1.0.1</initializerVersion>
+		<initializerVersion>1.2.0-SNAPSHOT</initializerVersion>
 		<openmrsTestutilsVersion>1.3</openmrsTestutilsVersion>
+		<openpdfVersion>1.3.11</openpdfVersion>
 	</properties>
 
+	<dependencies>
+
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>reporting-api</artifactId>
+			<version>${reportingVersion}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>patientsummary-api</artifactId>
+			<version>${patientsummaryVersion}</version>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>reporting-api-2.0</artifactId>
+			<version>${reportingVersion}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>reporting-api-tests</artifactId>
+			<version>${reportingVersion}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
 	<build>
-    <plugins>
-      <plugin>
-        <groupId>net.revelc.code.formatter</groupId>
-        <artifactId>formatter-maven-plugin</artifactId>
-        <version>2.7.1</version>
-        <configuration>
-          <directories>
-            <directory>.</directory>
-          </directories>
-          <configFile>../OpenMRSFormatter.xml</configFile>
-          <includes>
-            <include>**/*.java</include>
-          </includes>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>compile</phase>
-            <goals>
-              <goal>format</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+		<plugins>
+			<plugin>
+				<groupId>net.revelc.code.formatter</groupId>
+				<artifactId>formatter-maven-plugin</artifactId>
+				<version>2.7.1</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<directories>
+						<directory>.</directory>
+					</directories>
+					<configFile>../OpenMRSFormatter.xml</configFile>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>format</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 
 	<repositories>
 		<repository>
@@ -92,7 +137,7 @@
 			<id>central</id>
 			<name>Maven Repository Switchboard</name>
 			<layout>default</layout>
-			<url>http://repo1.maven.org/maven2</url>
+			<url>https://repo1.maven.org/maven2</url>
 		</repository>
 	</repositories>
 	<pluginRepositories>

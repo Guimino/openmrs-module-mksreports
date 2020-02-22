@@ -25,6 +25,9 @@
 		<require_module version="${initializerVersion}">
 			org.openmrs.module.initializer
 		</require_module>
+		<require_module version="${patientsummaryVersion}">
+			org.openmrs.module.patientsummary
+		</require_module>
 	</require_modules>
 	<!-- Internationalization -->
 	<!-- All message codes should start with @MODULE_ID@.* -->
@@ -49,6 +52,22 @@
 			reports
 		</description>
 	</globalProperty>
+	
+	<globalProperty>
+		<property>mksreports.enableHeader</property>
+		<defaultValue>true</defaultValue>
+		<description>
+			Show header on reports
+		</description>
+	</globalProperty>
+	<globalProperty>
+		<property>mksreports.brandingLogo</property>
+		<defaultValue>web/module/resources/OpenMRS_logo.png</defaultValue>
+		<description>
+			Logo image used to brand generated reports
+		</description>
+	</globalProperty>
+	
 
 </module>
 

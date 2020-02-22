@@ -11,6 +11,7 @@ package org.openmrs.module.mksreports;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.reporting.report.manager.ReportManagerUtil;
@@ -25,6 +26,7 @@ public class MKSReportsActivator extends BaseModuleActivator {
 	/**
 	 * @see #started()
 	 */
+	@Override
 	public void started() {
 		log.info("Started " + MKSReportsConstants.MODULE_NAME);
 		for (MKSReportManager reportManager : Context.getRegisteredComponents(MKSReportManager.class)) {
@@ -33,6 +35,18 @@ public class MKSReportsActivator extends BaseModuleActivator {
 				ReportManagerUtil.setupReport(reportManager); // if this fails the module won't start altogether
 			}
 		}
+		
+		AdministrationService adminSrvc = Context.getAdministrationService();
+		
+		// since there's no dependence on uiframework, mksreports is not registered as a
+		// view provider
+		// set the provider GP to "module/mksreports" and use the controller page name
+		// "patientHistory" as the pageName
+		adminSrvc.setGlobalProperty("htmlformentryui.customPrintProvider",
+		    "module/" + MKSReportsConstants.MODULE_ARTIFACT_ID);
+		adminSrvc.setGlobalProperty("htmlformentryui.customPrintPageName", MKSReportsConstants.PATIENTHISTORY_ID);
+		adminSrvc.setGlobalProperty("htmlformentryui.customPrintTarget", "_blank");
+		
 	}
 	
 	/**

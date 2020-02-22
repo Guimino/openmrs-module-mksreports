@@ -24,7 +24,6 @@ import org.openmrs.api.ObsService;
 import org.openmrs.api.VisitService;
 import org.openmrs.module.mksreports.definition.data.CalculatedObsDataDefinition;
 import org.openmrs.module.mksreports.definition.data.CalculatedObsDataDefinition.Operator;
-import org.openmrs.module.mksreports.reports.BaseReportTest;
 import org.openmrs.module.reporting.common.TimeQualifier;
 import org.openmrs.module.reporting.data.visit.EvaluatedVisitData;
 import org.openmrs.module.reporting.data.visit.definition.ObsForVisitDataDefinition;
@@ -33,9 +32,10 @@ import org.openmrs.module.reporting.data.visit.evaluator.ObsForVisitDataEvaluato
 import org.openmrs.module.reporting.data.visit.service.VisitDataService;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
+import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class CalculatedObsDataEvaluatorTest extends BaseReportTest {
+public class CalculatedObsDataEvaluatorTest extends BaseModuleContextSensitiveTest {
 	
 	@Autowired
 	private VisitService visitService;
@@ -173,8 +173,8 @@ public class CalculatedObsDataEvaluatorTest extends BaseReportTest {
 		
 		// Assign Visit 5 to Encounter 3 (which has a one obs of "0" numeric value)
 		Visit visit5 = visitService.getVisit(5);
-		Encounter encounter7 = encounterService.getEncounter(7);
-		encounter7.setVisit(visit5);
+		Encounter encounter6 = encounterService.getEncounter(6);
+		encounter6.setVisit(visit5);
 		
 		{
 			CalculatedObsDataDefinition d = new CalculatedObsDataDefinition(Operator.DIVISION);
